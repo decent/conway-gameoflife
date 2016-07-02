@@ -3,7 +3,9 @@
 
 #define HEIGHT 50
 #define WIDTH 50
-#define DELAY 100000
+
+// 0.1 sec
+#define DELAY_NSEC 100000000L
 
 char board[HEIGHT][WIDTH] = { "                                                  ",
                               "                                                  ",

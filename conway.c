@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <unistd.h>
+#include <time.h>
 
 #include "board.h"
 
@@ -7,10 +7,14 @@ void print_board(size_t m, size_t n, char board[m][n]);
 void copy_board(size_t m, size_t n, char dest[m][n], char src[m][n]);
 void clear_screen(void);
 void next_board(size_t m, size_t n, char board[m][n]);
-int count_neighbours(size_t m, size_t n, char board[m][n], int x, int y);
+int  count_neighbours(size_t m, size_t n, char board[m][n], int x, int y);
+
+struct timespec delay = { .tv_sec = 0, .tv_nsec = DELAY_NSEC };
 
 int main(int argc, char **argv) {
     int counter = 0;
+    struct timespec delay = { .tv_sec = 0, .tv_nsec = DELAY_NSEC };
+    struct timespec remain;
     
     while(1) {
         clear_screen();
@@ -18,14 +22,13 @@ int main(int argc, char **argv) {
         printf("Iteration: %d\n", counter);
         print_board(HEIGHT, WIDTH, board);
         next_board(HEIGHT, WIDTH, board);
-        usleep(DELAY);
+        nanosleep(&delay, &remain);
     }
 
     return 0;
 }
 
 void copy_board(size_t m, size_t n, char dest[m][n], char src[m][n]) {
-    // We need to copy the null character too
     for(int y = 0; y < m; y++) {
         for(int x = 0; x < n; x++) {
             board_copy[y][x] = board[y][x];
