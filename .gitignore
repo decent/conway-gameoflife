@@ -31,3 +31,10 @@
 # Debug files
 *.dSYM/
 *.su
+
+# VIM temporary files
+*.sw?
+*~
+
+# Main program
+conway
